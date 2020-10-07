@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +53,7 @@ public class TopicosController {
 	@Cacheable(value = "TopicosController.lista") /*Guarda o retorno do método em cache. eu adotei o padrao classe método*/
 	public Page<TopicoDto> lista(
 			@RequestParam(required = false) String nomeCurso,
-			@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
 		
 		//forma manual de paginacao
 		//Pageable paginacao = PageRequest.of(pagina, quantidade, Direction.ASC, ordenacao);
@@ -68,6 +69,7 @@ public class TopicosController {
 	
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "TopicosController.lista", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		
 		Topico topico = form.converter(cursoRepository);
@@ -94,6 +96,7 @@ public class TopicosController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "TopicosController.lista", allEntries = true)
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoTopicoForm form){
 		
 		Optional<Topico> optional = topicoRepository.findById(id);
@@ -110,6 +113,7 @@ public class TopicosController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "TopicosController.lista", allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Long id){
 		
 		Optional<Topico> optional = topicoRepository.findById(id);
