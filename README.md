@@ -4,6 +4,8 @@ Este projeto, faz parte dos estudos do curso da Alura, onde desenvolvi uma API R
 
 Ele usa um banco de dados em memoria para implementar exemplos com JPA
 
+documentação da API
+http://localhost:8080/swagger-ui.html
 
 Executar em modo de produção:
 
