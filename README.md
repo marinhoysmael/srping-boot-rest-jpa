@@ -18,3 +18,8 @@ docker build -t alura/forum .
 
 
 para ter certeza, execute o comando: docker image list e veja se ele alura/forum está sendo listada
+
+
+para executar a imagem docker com os parametros de produção executar o seguinte comando:
+
+docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE='prod' -e FORUM_DATABASE_URL='jdbc:h2:mem:alura-forum' -e FORUM_DATABASE_USERNAME='sa' -e FORUM_DATABASE_PASSWORD='' -e FORUM_JWT_SECRET='123456' alura/forum
