@@ -3,6 +3,7 @@ package br.com.alura.forum.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,7 @@ import br.com.alura.forum.repository.UsuarioRepository;
  */
 @EnableWebSecurity
 @Configuration
+@Profile(value = {"prod", "test"})
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -59,6 +61,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		//FIXME: lembrar de tirar o permitAll do actuator
 		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+		//nivel de autorizacao: somente moderador escluir topicos
+		.antMatchers(HttpMethod.DELETE, "/topicos/*").hasRole("MODERADOR")
 		.anyRequest().authenticated()
 		.and()
 		.csrf().disable()
