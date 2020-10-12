@@ -3,3 +3,7 @@
 Este projeto, faz parte dos estudos do curso da Alura, onde desenvolvi uma API REST com srping boot;
 
 Ele usa um banco de dados em memoria para implementar exemplos com JPA
+
+
+Executar em modo de produção:
+java -jar -Dspring.profiles.active=prod forum.jar
