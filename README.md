@@ -1,3 +1,5 @@
+# Exemplo: https://ysmael-alura-forum.herokuapp.com/swagger-ui.html
+
 # srping-boot-rest-jpa
 
 Este projeto, faz parte dos estudos do curso da Alura, onde desenvolvi uma API REST com srping boot;
